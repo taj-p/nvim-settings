@@ -68,7 +68,7 @@ if (has("termguicolors"))
  set termguicolors
 endif
 syntax enable
-colorscheme dracula
+colorscheme jellybeans
 
 "Nerd Tree
 let NERDTreeQuitOnOpen=1
