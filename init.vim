@@ -1,28 +1,36 @@
 call plug#begin("~/.vim/plugged")
   " Plugin Section
-
-  Plug 'dracula/vim'
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
+
   " Search plugins
   Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
   Plug 'junegunn/fzf.vim'
+
   " CoC & TypeScript plugins
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   let g:coc_global_extensions = ['coc-emmet', 'coc-css', 'coc-html', 'coc-json', 'coc-prettier', 'coc-tsserver', 'coc-eslint']
   Plug 'leafgarland/typescript-vim'
   Plug 'peitalin/vim-jsx-typescript'
+
   " Git plugins
   Plug 'tpope/vim-fugitive'
   Plug 'airblade/vim-gitgutter'
+
   " Automatically detecting tab spacing
   Plug 'tpope/vim-sleuth'
   Plug 'editorconfig/editorconfig-vim'
+
   " Commenting
   Plug 'preservim/nerdcommenter'
+
   " Status bar
   Plug 'vim-airline/vim-airline'
   Plug 'vim-airline/vim-airline-themes'
+
+  " Color themes
+  Plug 'dracula/vim'
+  Plug 'rafi/awesome-vim-colorschemes'
 call plug#end()
 
 "Config Section
@@ -63,14 +71,17 @@ syntax enable
 colorscheme dracula
 
 "Nerd Tree
+let NERDTreeQuitOnOpen=1
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
+let g:NERDTreeWinSize=60
+let g:NERDTreeQuitOnOpen=1
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
-nnoremap <silent> <C-b> :NERDTreeToggle<CR>
+nnoremap <silent> <C-b> :NERDTreeFind<CR>
 
 " open new split panes to right and below
 set splitright
@@ -123,6 +134,24 @@ nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+
 " Remap keys to jump to next/prev error
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
@@ -149,7 +178,33 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>z  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>x  <Plug>(coc-fix-current)
+
+" " Copy to clipboard
+vnoremap  <leader>y  "+y
+nnoremap  <leader>Y  "+yg_
+nnoremap  <leader>y  "+y
+nnoremap  <leader>yy  "+yy
+
+" " Paste from clipboard
+nnoremap <leader>p "+p
+nnoremap <leader>P "+P
+vnoremap <leader>p "+p
+vnoremap <leader>P "+P
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
 "example defaults for new projects
 set expandtab
 set tabstop=2
 set shiftwidth=2
+
+"Use zsh
+set shell=/zsh
