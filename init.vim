@@ -31,6 +31,7 @@ call plug#begin(stdpath('data') . '/plugged')
   " Vim movement plugins
   Plug 'justinmk/vim-sneak'
   Plug 'tpope/vim-surround'
+  Plug 'tpope/vim-commentary'
 
   " Golang
   Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
