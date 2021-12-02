@@ -1,5 +1,5 @@
 call plug#begin("~/.vim/plugged")
-  " Plugin Section
+  " File explorer
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
 
@@ -31,7 +31,42 @@ call plug#begin("~/.vim/plugged")
   " Color themes
   Plug 'dracula/vim'
   Plug 'rafi/awesome-vim-colorschemes'
+
+  " Vim movement plugins
+  Plug 'justinmk/vim-sneak'
+  Plug 'tpope/vim-surround'
+
+  " Golang
+  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+  " Terraform
+  Plug 'hashivim/vim-terraform'
 call plug#end()
+
+" let g:available_colorschemes = ['256noir', 'abstract', 'afterglow', 'alduin', 'anderson', 'angr', 'ayu-vim', 'Apprentice', 'Archery', 'Atom', 'carbonized', 'challenger-deep', 'deep-space', 'deus', 'dogrun', 'flattened', 'focuspoint', 'fogbell', 'github', 'gotham', 'gruvbox', 'happy hacking', 'Iceberg', 'papercolor', 'parsec', 'scheakur', 'hybrid', 'hybrid-material', 'jellybeans', 'lightning', 'lucid', 'lucius', 'materialbox', 'meta5', 'minimalist', 'molokai', 'molokayo', 'mountaineer', 'nord', 'oceanicnext', 'oceanic-material', 'one', 'onedark', 'onehalf', 'orbital', 'paramount', 'pink-moon', 'purify', 'pyte', 'rakr', 'rdark-terminal2', 'seoul256', 'sierra', 'solarized8', 'sonokai', 'space-vim-dark', 'spacecamp', 'sunbather', 'tender', 'termschool', 'twilight256', 'two-firewatch', 'wombat256', 'dracula' ]
+colorscheme jellybeans
+
+" My favourite colorschemes: OceanicNext, Nord, sierra, dogrun, yellow-moon, jellybeans
+
+function RCS() " For RandomColorScheme
+  let mycolors = split(globpath(&rtp,"**/colors/*.vim"),"\n") 
+  exe 'so ' . mycolors[localtime() % len(mycolors)]
+  unlet mycolors
+endfunction
+
+" call RCS() " For RandomColorScheme
+
+function! ShowColourSchemeName()
+    try
+        echo g:colors_name
+    catch /^Vim:E121/
+        echo "default"
+    endtry
+endfunction
+
+:command NewColor call RandomColorScheme()
+
+let g:sneak#label = 1
 
 "Config Section
 
@@ -68,7 +103,6 @@ if (has("termguicolors"))
  set termguicolors
 endif
 syntax enable
-colorscheme jellybeans
 
 "Nerd Tree
 let NERDTreeQuitOnOpen=1
@@ -133,6 +167,7 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
+autocmd FileType go nnoremap <buffer> gr :GoReferrers<CR>
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -205,4 +240,3 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set expandtab
 set tabstop=2
 set shiftwidth=2
-
