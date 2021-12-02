@@ -1,4 +1,4 @@
-call plug#begin("~/.vim/plugged")
+call plug#begin(stdpath('data') . '/plugged')
   " File explorer
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
@@ -41,6 +41,9 @@ call plug#begin("~/.vim/plugged")
 
   " Terraform
   Plug 'hashivim/vim-terraform'
+
+  " Navigation
+  Plug 'folke/zen-mode.nvim'
 call plug#end()
 
 " let g:available_colorschemes = ['256noir', 'abstract', 'afterglow', 'alduin', 'anderson', 'angr', 'ayu-vim', 'Apprentice', 'Archery', 'Atom', 'carbonized', 'challenger-deep', 'deep-space', 'deus', 'dogrun', 'flattened', 'focuspoint', 'fogbell', 'github', 'gotham', 'gruvbox', 'happy hacking', 'Iceberg', 'papercolor', 'parsec', 'scheakur', 'hybrid', 'hybrid-material', 'jellybeans', 'lightning', 'lucid', 'lucius', 'materialbox', 'meta5', 'minimalist', 'molokai', 'molokayo', 'mountaineer', 'nord', 'oceanicnext', 'oceanic-material', 'one', 'onedark', 'onehalf', 'orbital', 'paramount', 'pink-moon', 'purify', 'pyte', 'rakr', 'rdark-terminal2', 'seoul256', 'sierra', 'solarized8', 'sonokai', 'space-vim-dark', 'spacecamp', 'sunbather', 'tender', 'termschool', 'twilight256', 'two-firewatch', 'wombat256', 'dracula' ]
@@ -67,6 +70,8 @@ endfunction
 :command NewColor call RandomColorScheme()
 
 let g:sneak#label = 1
+
+" Navigation
 
 "Config Section
 
@@ -240,3 +245,59 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set expandtab
 set tabstop=2
 set shiftwidth=2
+
+" Navigation
+
+lua << EOF
+  require("zen-mode").setup {
+    window = {
+      backdrop = 0.95, -- shade the backdrop of the Zen window. Set to 1 to keep the same as Normal
+      -- height and width can be:
+      -- * an absolute number of cells when > 1
+      -- * a percentage of the width / height of the editor when <= 1
+      -- * a function that returns the width or the height
+      width = 120, -- width of the Zen window
+      height = 1, -- height of the Zen window
+      -- by default, no options are changed for the Zen window
+      -- uncomment any of the options below, or add other vim.wo options you want to apply
+      options = {
+        -- signcolumn = "no", -- disable signcolumn
+        number = false, -- disable number column
+        relativenumber = false, -- disable relative numbers
+        -- cursorline = false, -- disable cursorline
+        -- cursorcolumn = false, -- disable cursor column
+        -- foldcolumn = "0", -- disable fold column
+        -- list = false, -- disable whitespace characters
+      },
+    },
+    plugins = {
+      -- disable some global vim options (vim.o...)
+      -- comment the lines to not apply the options
+      options = {
+        enabled = true,
+        ruler = false, -- disables the ruler text in the cmd line area
+        showcmd = false, -- disables the command in the last line of the screen
+      },
+      twilight = { enabled = true }, -- enable to start Twilight when zen mode opens
+      gitsigns = { enabled = false }, -- disables git signs
+      tmux = { enabled = false }, -- disables the tmux statusline
+      -- this will change the font size on kitty when in zen mode
+      -- to make this work, you need to set the following kitty options:
+      -- - allow_remote_control socket-only
+      -- - listen_on unix:/tmp/kitty
+      kitty = {
+        enabled = false,
+        font = "+4", -- font size increment
+      },
+    },
+    -- callback where you can add custom code when the Zen window opens
+    on_open = function(win)
+    end,
+    -- callback where you can add custom code when the Zen window closes
+    on_close = function()
+    end,
+    }
+EOF
+
+nnoremap zm :ZenMode <CR>
+
