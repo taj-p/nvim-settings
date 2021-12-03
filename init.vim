@@ -265,6 +265,7 @@ let g:go_highlight_types = 1
 
 " let g:go_auto_sameids = 1
 let g:go_fmt_command = "goimports"
+let g:go_doc_popup_window = 1
 
 au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
 au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
