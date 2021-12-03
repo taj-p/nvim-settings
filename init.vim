@@ -178,7 +178,6 @@ nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
-autocmd FileType go nnoremap <buffer> gr :GoReferrers<CR>
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -251,6 +250,28 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 set expandtab
 set tabstop=2
 set shiftwidth=2
+
+" Golang
+autocmd FileType go nnoremap <buffer> gr :GoReferrers<CR>
+
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 0
+let g:go_highlight_structs = 0
+let g:go_highlight_types = 1
+
+" let g:go_auto_sameids = 1
+let g:go_fmt_command = "goimports"
+
+au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+
+au FileType go nmap <leader>t :GoTest -short<cr>
+au FileType go nmap <leader>tc :GoCoverageToggle -short<cr>
 
 " Navigation
 
