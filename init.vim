@@ -3,6 +3,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'scrooloose/nerdtree'
   Plug 'ryanoasis/vim-devicons'
 
+  Plug 'leafOfTree/vim-svelte-plugin'
 
   " CoC & TypeScript plugins
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -342,4 +343,5 @@ nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
 
 " Svelte
+let g:vim_svelte_plugin_load_full_syntax = 1
 let g:vim_svelte_plugin_use_typescript = 1
