@@ -35,7 +35,7 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'tpope/vim-commentary'
 
   " Golang
-  Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+  " Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
   " Terraform
   Plug 'hashivim/vim-terraform'
@@ -51,6 +51,9 @@ call plug#begin(stdpath('data') . '/plugged')
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'} 
   Plug 'nvim-treesitter/nvim-treesitter-textobjects'
+
+  " Python
+  Plug 'davidhalter/jedi-vim'
 call plug#end()
 
 " let g:available_colorschemes = ['256noir', 'abstract', 'afterglow', 'alduin', 'anderson', 'angr', 'ayu-vim', 'Apprentice', 'Archery', 'Atom', 'carbonized', 'challenger-deep', 'deep-space', 'deus', 'dogrun', 'flattened', 'focuspoint', 'fogbell', 'github', 'gotham', 'gruvbox', 'happy hacking', 'Iceberg', 'papercolor', 'parsec', 'scheakur', 'hybrid', 'hybrid-material', 'jellybeans', 'lightning', 'lucid', 'lucius', 'materialbox', 'meta5', 'minimalist', 'molokai', 'molokayo', 'mountaineer', 'nord', 'oceanicnext', 'oceanic-material', 'one', 'onedark', 'onehalf', 'orbital', 'paramount', 'pink-moon', 'purify', 'pyte', 'rakr', 'rdark-terminal2', 'seoul256', 'sierra', 'solarized8', 'sonokai', 'space-vim-dark', 'spacecamp', 'sunbather', 'tender', 'termschool', 'twilight256', 'two-firewatch', 'wombat256', 'dracula' ]
@@ -253,7 +256,7 @@ set tabstop=2
 set shiftwidth=2
 
 " Golang
-autocmd FileType go nnoremap <buffer> gr :GoReferrers<CR>
+" autocmd FileType go nnoremap <buffer> gr :GoReferrers<CR>
 
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
@@ -268,12 +271,12 @@ let g:go_highlight_types = 1
 let g:go_fmt_command = "goimports"
 let g:go_doc_popup_window = 1
 
-au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
-au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
-au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
+" au Filetype go nmap <leader>ga <Plug>(go-alternate-edit)
+" au Filetype go nmap <leader>gah <Plug>(go-alternate-split)
+" au Filetype go nmap <leader>gav <Plug>(go-alternate-vertical)
 
-au FileType go nmap <leader>t :GoTest -short<cr>
-au FileType go nmap <leader>tc :GoCoverageToggle -short<cr>
+" au FileType go nmap <leader>t :GoTest -short<cr>
+" au FileType go nmap <leader>tc :GoCoverageToggle -short<cr>
 
 " Navigation
 

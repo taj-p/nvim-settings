@@ -8,6 +8,8 @@
     "javascriptreact",
     "typescript.tsx",
     "markdown",
+    "html",
+    "css",
     "md"
   ],
   "eslint.filetypes": [
